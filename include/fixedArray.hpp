@@ -73,6 +73,9 @@ public:
 
     const_reverse_iterator crend() const
     { return reverse_iterator(begin());}
+
+    void fill(const T& value)
+    { std::fill(begin(),end(), value); }
 };
 
 #endif
