@@ -16,10 +16,10 @@ public:
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
 
-    T& operator[](int i)
+    T& operator[](int i) noexcept
     { return m_arr[i];}
 
-    const T& operator[](int i) const
+    const T& operator[](int i) const noexcept
     { return  m_arr[i];}
 
     T& at(int i)
@@ -38,31 +38,31 @@ public:
         return m_arr[i];
     }
 
-    T& front()
+    T& front() noexcept
     { return m_arr[0]; }
 
-    const T& front() const
+    const T& front() const noexcept
     { return m_arr[0]; }
 
-    T& back()
+    T& back() noexcept
     { return m_arr[m_size-1]; }
 
-    const T& back() const 
+    const T& back() const noexcept 
     { return m_arr[m_size-1]; }
 
-    T& data()
+    T& data() noexcept
     { return m_arr; }
 
-    const T& data() const
+    const T& data() const noexcept
     { return m_arr; }
 
-    iterator begin()
+    iterator begin() noexcept
     { return m_arr; }
 
-    const_iterator begin() const 
+    const_iterator begin() const noexcept 
     { return m_arr; }
 
-    const_iterator cbegin() const 
+    const_iterator cbegin() const noexcept
     { return m_arr; }
 
     reverse_iterator rbegin()
@@ -74,13 +74,13 @@ public:
     const_reverse_iterator crbegin() const
     { return reverse_iterator(end());}
 
-    iterator end()
+    iterator end() noexcept
     { return m_arr+m_size; }
 
-    const_iterator end() const
+    const_iterator end() const noexcept
     { return m_arr+m_size; }
 
-    const_iterator cend() const
+    const_iterator cend() const noexcept
     { return m_arr+m_size; }
 
     reverse_iterator rend()
@@ -92,13 +92,13 @@ public:
     const_reverse_iterator crend() const
     { return reverse_iterator(begin());}
 
-    constexpr std::size_t size() const
+    constexpr std::size_t size() const noexcept
     { return m_size;}
 
-    constexpr std::size_t max_size() const
+    constexpr std::size_t max_size() const noexcept
     { return m_size; }
 
-    constexpr bool empty() const
+    constexpr bool empty() const noexcept
     { return m_size == 0UL;}
 
     void fill(const T& value)
