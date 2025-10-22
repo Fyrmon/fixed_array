@@ -3,7 +3,7 @@
 
 int main()
 {
-    FixedArray<int,3> a {1,2,3};
-    std::cout<< a[2]<<'\n';
+    const FixedArray<int,3> a {1,2,3};
+    std::cout<< a.at(1)<<'\n';
     return 0;
 }

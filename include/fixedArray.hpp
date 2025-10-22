@@ -11,10 +11,26 @@ public:
 
 
     T& operator[](int i)
+    { return m_arr[i];}
+
+    const T& operator[](int i) const
+    { return  m_arr[i];}
+
+    T& at(int i)
     {
+        if( 0 > i || m_size-1 < i )
+            throw std::out_of_range("Invalid index");
+        
         return m_arr[i];
     }
 
+    const T& at(int i) const
+    {
+        if( 0 > i || m_size-1 < i )
+            throw std::out_of_range("Invalid index");
+        
+        return m_arr[i];
+    }
 };
 
 #endif
