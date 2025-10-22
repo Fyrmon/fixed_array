@@ -9,6 +9,12 @@ public:
     T m_arr[size];
     std::size_t m_size{ size };
 
+    using iterator = T*;
+    using const_iterator = const T*;
+
+    using reverse_iterator = std::reverse_iterator<iterator>;
+    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
 
     T& operator[](int i)
     { return m_arr[i];}
@@ -31,6 +37,42 @@ public:
         
         return m_arr[i];
     }
+
+    iterator begin()
+    { return m_arr; }
+
+    const_iterator begin() const 
+    { return m_arr; }
+
+    const_iterator cbegin() const 
+    { return m_arr; }
+
+    reverse_iterator rbegin()
+    { return reverse_iterator(end());}
+
+    const_reverse_iterator rbegin() const
+    { return reverse_iterator(end());}
+
+    const_reverse_iterator crbegin() const
+    { return reverse_iterator(end());}
+
+    iterator end()
+    { return m_arr+m_size; }
+
+    const_iterator end() const
+    { return m_arr+m_size; }
+
+    const_iterator cend() const
+    { return m_arr+m_size; }
+
+    reverse_iterator rend()
+    { return reverse_iterator(begin());}
+
+    const_reverse_iterator rend() const
+    { return reverse_iterator(begin());}
+
+    const_reverse_iterator crend() const
+    { return reverse_iterator(begin());}
 };
 
 #endif
