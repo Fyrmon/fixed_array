@@ -2,12 +2,12 @@
 #define FIXED_ARRAY_HPP
 #include <cstddef>
 
-template<typename T, std::size_t size>
+template<typename T, std::size_t s>
 class FixedArray
 {
 public:
-    T m_arr[size];
-    std::size_t m_size{ size };
+    T m_arr[s];
+    std::size_t m_size{ s };
 
     using iterator = T*;
     using const_iterator = const T*;
@@ -76,6 +76,15 @@ public:
 
     void fill(const T& value)
     { std::fill(begin(),end(), value); }
+
+    constexpr std::size_t size() const
+    { return m_size;}
+
+    constexpr std::size_t max_size() const
+    { returm m_size; }
+
+    constexpr bool empty() const
+    { return m_size == 0UL;}
 };
 
 #endif
