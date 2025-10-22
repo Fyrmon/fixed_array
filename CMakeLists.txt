@@ -9,3 +9,4 @@ find_package(GTest REQUIRED)
 add_executable(arr src/main.cpp)
 
 target_link_libraries(arr gtest::gtest)
+target_include_directories(arr PRIVATE include)
