@@ -25,7 +25,7 @@ public:
     T& at(int i)
     {
         if( 0 > i || m_size-1 < i )
-            throw std::out_of_range("Invalid index");
+            throw std::out_of_range("FixedArray::at() Invalid index");
         
         return m_arr[i];
     }
@@ -33,10 +33,28 @@ public:
     const T& at(int i) const
     {
         if( 0 > i || m_size-1 < i )
-            throw std::out_of_range("Invalid index");
+            throw std::out_of_range("FixedArray::at() Invalid index");
         
         return m_arr[i];
     }
+
+    T& front()
+    { return m_arr[0]; }
+
+    const T& front() const
+    { return m_arr[0]; }
+
+    T& back()
+    { return m_arr[m_size-1]; }
+
+    const T& back() const 
+    { return m_arr[m_size-1]; }
+
+    T& data()
+    { return m_arr; }
+
+    const T& data() const
+    { return m_arr; }
 
     iterator begin()
     { return m_arr; }
@@ -74,17 +92,17 @@ public:
     const_reverse_iterator crend() const
     { return reverse_iterator(begin());}
 
-    void fill(const T& value)
-    { std::fill(begin(),end(), value); }
-
     constexpr std::size_t size() const
     { return m_size;}
 
     constexpr std::size_t max_size() const
-    { returm m_size; }
+    { return m_size; }
 
     constexpr bool empty() const
     { return m_size == 0UL;}
+
+    void fill(const T& value)
+    { std::fill(begin(),end(), value); }
 };
 
 #endif
