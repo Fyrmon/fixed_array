@@ -2,6 +2,7 @@
 #define FIXED_ARRAY_HPP
 #include <iostream>
 #include <cstddef>
+#include <utility>
 
 template<typename T, std::size_t s>
 class FixedArray
@@ -116,7 +117,8 @@ public:
     void fill(const T& value)
     { std::fill(begin(),end(), value); }
 
-    void swap(FixedArray<T,s>& other)
+    void swap(FixedArray<T,s>& other) 
+        noexcept(noexcept(std::swap(std::declval<T&>(), std::declval<T&>())))
     {
         for(std::size_t i{0}; i<m_size; i++)
             std::swap(m_arr[i],other.m_arr[i]);
