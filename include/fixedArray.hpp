@@ -1,6 +1,8 @@
 #ifndef FIXED_ARRAY_HPP
 #define FIXED_ARRAY_HPP
+#include <iostream>
 #include <cstddef>
+#include <utility>
 
 template<typename T, std::size_t s>
 class FixedArray
@@ -16,16 +18,27 @@ public:
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
 
-    T& operator[](int i)
+    T& operator[](int i) noexcept
     { return m_arr[i];}
 
-    const T& operator[](int i) const
+    const T& operator[](int i) const noexcept
     { return  m_arr[i];}
+
+    bool operator==(const FixedArray<T,s>& other) const noexcept
+    {   
+        for(std::size_t i{0}; i < m_size; i++)
+        {
+            if( m_arr[i] != other.m_arr[i])
+                return false;
+        }
+
+        return true;
+    }
 
     T& at(int i)
     {
         if( 0 > i || m_size-1 < i )
-            throw std::out_of_range("Invalid index");
+            throw std::out_of_range("FixedArray::at() Invalid index");
         
         return m_arr[i];
     }
@@ -33,18 +46,36 @@ public:
     const T& at(int i) const
     {
         if( 0 > i || m_size-1 < i )
-            throw std::out_of_range("Invalid index");
+            throw std::out_of_range("FixedArray::at() Invalid index");
         
         return m_arr[i];
     }
 
-    iterator begin()
+    T& front() noexcept
+    { return m_arr[0]; }
+
+    const T& front() const noexcept
+    { return m_arr[0]; }
+
+    T& back() noexcept
+    { return m_arr[m_size-1]; }
+
+    const T& back() const noexcept 
+    { return m_arr[m_size-1]; }
+
+    T& data() noexcept
     { return m_arr; }
 
-    const_iterator begin() const 
+    const T& data() const noexcept
     { return m_arr; }
 
-    const_iterator cbegin() const 
+    iterator begin() noexcept
+    { return m_arr; }
+
+    const_iterator begin() const noexcept 
+    { return m_arr; }
+
+    const_iterator cbegin() const noexcept
     { return m_arr; }
 
     reverse_iterator rbegin()
@@ -56,13 +87,13 @@ public:
     const_reverse_iterator crbegin() const
     { return reverse_iterator(end());}
 
-    iterator end()
+    iterator end() noexcept
     { return m_arr+m_size; }
 
-    const_iterator end() const
+    const_iterator end() const noexcept
     { return m_arr+m_size; }
 
-    const_iterator cend() const
+    const_iterator cend() const noexcept
     { return m_arr+m_size; }
 
     reverse_iterator rend()
@@ -74,17 +105,38 @@ public:
     const_reverse_iterator crend() const
     { return reverse_iterator(begin());}
 
+    constexpr std::size_t size() const noexcept
+    { return m_size;}
+
+    constexpr std::size_t max_size() const noexcept
+    { return m_size; }
+
+    constexpr bool empty() const noexcept
+    { return m_size == 0UL;}
+
     void fill(const T& value)
     { std::fill(begin(),end(), value); }
 
-    constexpr std::size_t size() const
-    { return m_size;}
+    void swap(FixedArray<T,s>& other) 
+        noexcept(noexcept(std::swap(std::declval<T&>(), std::declval<T&>())))
+    {
+        for(std::size_t i{0}; i<m_size; i++)
+            std::swap(m_arr[i],other.m_arr[i]);
+    }
 
-    constexpr std::size_t max_size() const
-    { returm m_size; }
+    friend std::ostream& operator<<(std::ostream& out, const FixedArray<T,s>& arr)
+    {
+        for(auto it{ arr.begin() }; it!= arr.end(); ++it)
+            out<<*it<<' ';
 
-    constexpr bool empty() const
-    { return m_size == 0UL;}
+        return out;
+    }
+
+    friend void swap(FixedArray<T,s>& a, FixedArray<T,s>& b ) 
+        noexcept(noexcept(a.swap(b)))
+    {
+        a.swap(b);
+    }
 };
 
 #endif
