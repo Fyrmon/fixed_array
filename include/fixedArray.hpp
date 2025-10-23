@@ -22,7 +22,7 @@ public:
     const T& operator[](int i) const noexcept
     { return  m_arr[i];}
 
-    bool operator==(const FixedArray<T,s>& other) const
+    bool operator==(const FixedArray<T,s>& other) const noexcept
     {
         if( m_size != other.m_size)
             return false;
