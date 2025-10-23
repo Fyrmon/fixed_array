@@ -6,7 +6,10 @@ int main()
     FixedArray<int,3> a;
     a.fill(15);
     FixedArray<int,3> b;
-    b.fill(15);
+    b.fill(16);
     std::cout<<(a == b) <<'\n';
+    a.swap(b);
+
+    std::cout<<"A: "<<a<<"\tB: "<<b<<'\n';
     return 0;
 }

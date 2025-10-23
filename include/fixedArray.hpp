@@ -1,5 +1,6 @@
 #ifndef FIXED_ARRAY_HPP
 #define FIXED_ARRAY_HPP
+#include <iostream>
 #include <cstddef>
 
 template<typename T, std::size_t s>
@@ -23,10 +24,7 @@ public:
     { return  m_arr[i];}
 
     bool operator==(const FixedArray<T,s>& other) const noexcept
-    {
-        if( m_size != other.m_size)
-            return false;
-        
+    {   
         for(std::size_t i{0}; i < m_size; i++)
         {
             if( m_arr[i] != other.m_arr[i])
@@ -117,6 +115,20 @@ public:
 
     void fill(const T& value)
     { std::fill(begin(),end(), value); }
+
+    void swap(FixedArray<T,s>& other)
+    {
+        for(std::size_t i{0}; i<m_size; i++)
+            std::swap(m_arr[i],other.m_arr[i]);
+    }
+
+    friend std::ostream& operator<<(std::ostream& out, const FixedArray<T,s>& arr)
+    {
+        for(auto it{ arr.begin() }; it!= arr.end(); ++it)
+            out<<*it<<' ';
+
+        return out;
+    }
 };
 
 #endif
