@@ -131,6 +131,12 @@ public:
 
         return out;
     }
+
+    friend void swap(FixedArray<T,s>& a, FixedArray<T,s>& b ) 
+        noexcept(noexcept(a.swap(b)))
+    {
+        a.swap(b);
+    }
 };
 
 #endif
