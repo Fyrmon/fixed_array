@@ -22,6 +22,20 @@ public:
     const T& operator[](int i) const noexcept
     { return  m_arr[i];}
 
+    bool operator==(const FixedArray<T,s>& other) const
+    {
+        if( m_size != other.m_size)
+            return false;
+        
+        for(std::size_t i{0}; i < m_size; i++)
+        {
+            if( m_arr[i] != other.m_arr[i])
+                return false;
+        }
+
+        return true;
+    }
+
     T& at(int i)
     {
         if( 0 > i || m_size-1 < i )
