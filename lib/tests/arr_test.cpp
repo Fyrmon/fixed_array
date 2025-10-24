@@ -1,10 +1,19 @@
 #include <gtest/gtest.h>
 #include "fixedArray.hpp"
 
-// Demonstrate some basic assertions.
-TEST(FixedArrayTest, Creation)
+
+using TestArrA = FixedArray<int,5>;
+using TestArrB = FixedArray<int,4>;
+class FixedArrayTest : public ::testing::Test
 {
-  // creation of the fixedarray?
-  FixedArray<int,3> arr{1,2,3};
-  EXPECT_EQ(arr.size(),3);
+  protected:
+    TestArrA a{ 1, 2, 3, 4, 5};
+    TestArrB b{ 6, 7, 8, 9 };
+
+};
+
+TEST_F(FixedArrayTest, CorrectSize)
+{
+  EXPECT_EQ(a.size(), 5);
+  EXPECT_EQ(b.size(), 4);
 }
