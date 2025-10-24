@@ -4,9 +4,25 @@ project(fixed_array LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_library(arr_lib lib/include/fixedArray.hpp)
+
+set_target_properties(arr_lib PROPERTIES LINKER_LANGUAGE CXX)
+
+target_include_directories(arr_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}lib/include)
+
+add_executable(fixed_array app/main.cpp)
+target_link_libraries(fixed_array PRIVATE arr_lib)
+
 find_package(GTest REQUIRED)
+enable_testing()
 
-add_executable(arr src/main.cpp)
+add_executable(arr_test lib/tests/arr_test.cpp)
 
-target_link_libraries(arr gtest::gtest)
-target_include_directories(arr PRIVATE include)
+target_link_libraries(arr_test PRIVATE
+    arr_lib
+    GTest::gtest
+    GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(arr_test)
