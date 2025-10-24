@@ -4,6 +4,7 @@
 
 using TestArrA = FixedArray<int,5>;
 using TestArrB = FixedArray<int,4>;
+
 class FixedArrayTest : public ::testing::Test
 {
   protected:
@@ -22,6 +23,15 @@ TEST_F(FixedArrayTest, AccessingElements)
 {
   EXPECT_EQ(a[0], 1);
   EXPECT_EQ(b[1], 7);
+}
+
+TEST_F(FixedArrayTest, AccessingElementsWithAt)
+{
+  EXPECT_EQ(a.at(0), 1);
+  EXPECT_EQ(b.at(1), 7);
+
+  EXPECT_NE(a.at(3), 13);
+  EXPECT_NE(b.at(2), 66);
 }
 
 TEST_F(FixedArrayTest, ChangingElements)
