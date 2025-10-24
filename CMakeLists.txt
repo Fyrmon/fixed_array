@@ -4,11 +4,8 @@ project(fixed_array LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(arr_lib lib/include/fixedArray.hpp)
-
-set_target_properties(arr_lib PROPERTIES LINKER_LANGUAGE CXX)
-
-target_include_directories(arr_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}lib/include)
+add_library(arr_lib INTERFACE)
+target_include_directories(arr_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/lib/include)
 
 add_executable(fixed_array app/main.cpp)
 target_link_libraries(fixed_array PRIVATE arr_lib)
