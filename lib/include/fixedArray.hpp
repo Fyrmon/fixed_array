@@ -35,6 +35,11 @@ public:
         return true;
     }
 
+    bool operator!=(const FixedArray<T,s>& other) const noexcept
+    {
+        return !(*this == other);
+    }
+
     T& at(int i)
     {
         if( 0 > i || m_size-1 < i )
