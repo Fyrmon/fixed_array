@@ -60,3 +60,73 @@ TEST_F(FixedArrayTest, InequalityCheck)
   TestArrA b{1,2,3,4,5};
   EXPECT_EQ( a != b, 0);
 }
+
+TEST_F(FixedArrayTest, FrontCheck)
+{
+  EXPECT_EQ(a.front(),1);
+  EXPECT_NE(a.front(),2);
+
+  EXPECT_EQ(b.front(),6);
+  EXPECT_NE(b.front(),7);
+}
+
+TEST_F(FixedArrayTest, BackCheck)
+{
+  EXPECT_EQ(a.back(),5);
+  EXPECT_NE(a.back(),4);
+
+  EXPECT_EQ(b.back(),9);
+  EXPECT_NE(b.back(),10);
+}
+
+TEST_F(FixedArrayTest, BeginCheck)
+{
+  EXPECT_EQ(a.begin(), &a.front());
+  EXPECT_NE(a.begin(),&a[1]);
+  EXPECT_NE(a.begin(), b.begin());
+  EXPECT_NE(a.begin(), a.end());
+
+  EXPECT_EQ(b.begin(), &b.front());
+  EXPECT_NE(b.begin(), &b[1]);
+  EXPECT_NE(b.begin(), a.begin());
+  EXPECT_NE(b.begin(), b.end());
+}
+
+TEST_F(FixedArrayTest, EndCheck)
+{
+  EXPECT_EQ(a.end(), &a.back()+1);
+  EXPECT_NE(a.end(), a.begin());
+  EXPECT_NE(a.end(), b.end());
+
+  EXPECT_EQ(b.end(), &b.back()+1);
+  EXPECT_NE(b.end(), b.begin());
+  EXPECT_NE(b.end(), a.end());
+}
+
+TEST_F(FixedArrayTest, EmptyCheck)
+{
+  FixedArray<int,0> arr;
+  EXPECT_EQ(arr.empty(),1);
+  EXPECT_EQ(a.empty(),0);
+}
+
+TEST_F(FixedArrayTest, FillCheck)
+{
+  TestArrA filled;
+  filled.fill(6);
+  EXPECT_EQ(filled, (TestArrA{6,6,6,6,6}));
+
+  a.fill(3);
+  EXPECT_EQ(a, (TestArrA{3,3,3,3,3}));
+
+  filled.fill(4);
+  EXPECT_NE(filled,(TestArrA{2,2,2,2,2}));
+}
+
+TEST_F(FixedArrayTest, SwapCheck)
+{
+  TestArrA c{5,4,3,2,1};
+  a.swap(c);
+  EXPECT_EQ(a,(TestArrA{5,4,3,2,1}));
+  EXPECT_EQ(c, (TestArrA{1,2,3,4,5}));
+}
